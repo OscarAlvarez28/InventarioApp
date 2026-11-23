@@ -1,8 +1,7 @@
 
 package com.sena.inventarioapp.feature.product.presentation.screen
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -28,7 +27,15 @@ fun ProductListScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Inventario") }
+                title = { Text("Inventario") },
+                actions = {
+                    TextButton(
+                        onClick = { vm.sync() },
+                        enabled = !ui.isSyncing
+                    ) {
+                        Text("Sincronizar")
+                    }
+                }
             )
         },
         floatingActionButton = {
@@ -42,6 +49,19 @@ fun ProductListScreen(
                 .padding(padding)
                 .padding(16.dp)
         ) {
+            if (ui.isSyncing) {
+                LinearProgressIndicator(
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+
+            ui.message?.let {
+                Text(
+                    text = it,
+                    modifier = Modifier.padding(8.dp)
+                )
+            }
+
             ProductListSection(
                 products = ui.products,
                 onEdit = onEdit,

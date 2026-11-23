@@ -15,11 +15,18 @@ hilt = "2.60.1"
 hiltLifecycle = "1.4.0"
 
 
+firebaseBom = "34.19.0"
+googleServices = "4.6.0"
+
 room = "2.8.5"
 ksp = "2.3.12"
 
 [libraries]
 
+
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth" }
+firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore" }
 
 androidx-hilt-lifecycle-viewmodel-compose = { group = "androidx.hilt", name = "hilt-lifecycle-viewmodel-compose", version.ref = "hiltLifecycle" }
 
@@ -54,6 +61,9 @@ androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-te
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 
 [plugins]
+
+google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
+
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
