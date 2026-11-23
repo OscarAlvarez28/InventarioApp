@@ -12,18 +12,17 @@ import java.util.Locale
 
 @Composable
 fun ProductCard(
-    product: Product
+    product: Product,
+    onEdit: () -> Unit,
+    onDelete: () -> Unit
 ) {
     val formato = NumberFormat.getCurrencyInstance(
         Locale.forLanguageTag("es-CO")
     )
 
-    Card(
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Column(
-            modifier = Modifier.padding(16.dp)
-        ) {
+    Card(modifier = Modifier.fillMaxWidth()) {
+        Column(modifier = Modifier.padding(16.dp)) {
+
             Text(
                 text = product.name,
                 style = MaterialTheme.typography.titleMedium
@@ -31,6 +30,16 @@ fun ProductCard(
 
             Text("Precio: ${formato.format(product.priceCop)}")
             Text("Cantidad: ${product.quantity}")
+
+            Row {
+                TextButton(onClick = onEdit) {
+                    Text("Editar")
+                }
+
+                TextButton(onClick = onDelete) {
+                    Text("Eliminar")
+                }
+            }
         }
     }
 }

@@ -13,9 +13,10 @@ import com.sena.inventarioapp.feature.product.presentation.composables.ProductCa
 
 @Composable
 fun ProductListSection(
-    products: List<Product>
+    products: List<Product>,
+    onEdit: (String) -> Unit,
+    onDelete: (String) -> Unit
 ) {
-
     if (products.isEmpty()) {
         Text(
             text = "Todavía no hay productos registrados.",
@@ -23,10 +24,15 @@ fun ProductListSection(
         )
     } else {
         LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            contentPadding = PaddingValues(bottom = 80.dp)
         ) {
             items(products, key = { it.id }) { product ->
-                ProductCard(product = product)
+                ProductCard(
+                    product = product,
+                    onEdit = { onEdit(product.id) },
+                    onDelete = { onDelete(product.id) }
+                )
             }
         }
     }

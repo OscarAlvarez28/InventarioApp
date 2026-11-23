@@ -12,13 +12,16 @@ import androidx.navigation3.ui.NavDisplay
 import com.sena.inventarioapp.feature.product.presentation.screen.ProductListScreen
 import com.sena.inventarioapp.feature.product.presentation.screen.ProductFormScreen
 import com.sena.inventarioapp.feature.product.presentation.viewmodel.ProductListViewModel
+import com.sena.inventarioapp.feature.product.presentation.viewmodel.ProductFormViewModel
 import kotlinx.serialization.Serializable
 
 @Serializable
 data object ProductListRoute : NavKey
 
 @Serializable
-data object ProductFormRoute : NavKey
+data class ProductFormRoute(
+    val id: String? = null
+) : NavKey
 
 @Composable
 fun AppNavigation() {
@@ -42,19 +45,26 @@ fun AppNavigation() {
         entryProvider = entryProvider {
 
             entry<ProductListRoute> {
-
                 val vm: ProductListViewModel = hiltViewModel()
+
 
                 ProductListScreen(
                     vm = vm,
                     onCreate = {
-                        backStack.add(ProductFormRoute)
+                        backStack.add(ProductFormRoute())
+                    },
+                    onEdit = { id ->
+                        backStack.add(ProductFormRoute(id))
                     }
                 )
             }
 
-            entry<ProductFormRoute> {
+            entry<ProductFormRoute> { route ->
+                val vm: ProductFormViewModel = hiltViewModel()
+
                 ProductFormScreen(
+                    vm = vm,
+                    productId = route.id,
                     onBack = {
                         backStack.removeLastOrNull()
                     }
