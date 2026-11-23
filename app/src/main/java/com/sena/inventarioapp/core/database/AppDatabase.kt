@@ -1,0 +1,17 @@
+
+package com.sena.inventarioapp.core.database
+
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import com.sena.inventarioapp.feature.product.data.local.ProductDao
+import com.sena.inventarioapp.feature.product.data.local.ProductEntity
+
+@Database(
+    entities = [ProductEntity::class],
+    version = 1,
+    exportSchema = false
+)
+abstract class AppDatabase : RoomDatabase() {
+
+    abstract fun productDao(): ProductDao
+}
